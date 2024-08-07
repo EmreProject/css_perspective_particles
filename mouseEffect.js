@@ -134,7 +134,7 @@ getMouseCallback(){
                 const scrollElemenet_=this.scrollElement;
   
                 const changeScroll=function(){
-                    scrollElemenet_.scrollTop=cursorDelta+lastCursorPosY;
+                    scrollElemenet_.scrollTop=(cursorDelta*2)+lastCursorPosY;
                     throttle=true;
 
                 };
