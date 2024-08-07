@@ -120,7 +120,7 @@ getMouseCallback(){
         const y_Normalized= -((mouseY - winHeight/2)/ (winHeight/2));
         animation_.endTranslate= y_Normalized * translateRange;
 
-        console.log(event.pointerId + ` - ${event.pointerType}`);
+       // console.log(event.pointerId + ` - ${event.pointerType}`);
 
         if(event.pointerType=="touch" && event.isPrimary==true){
 
