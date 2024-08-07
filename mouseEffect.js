@@ -32,6 +32,10 @@ class mouseTracker{
 scrollElement;
 parallaxContainer;
 percentageScroll;
+touchDevice={
+    cursorY:-1,
+    currentScrollY:-1
+}
 
 
 currentAnimation;
@@ -74,12 +78,27 @@ animation_.translateElement=parallaxContainer;
 
 }
 
+getTouchDownCallback(){
+
+const callback=function(event){
+
+this.touchDevice.cursorY=event.clientY;
+this.touchDevice.currentScrollY = this.scrollElement.scrollTop;
+
+};
+
+
+return callback.bind(this);
+
+
+}
 
 
 getMouseCallback(){
 
    
     this.createAnimation();
+    let throttle=true;
 
     const callback=function(event){
 
@@ -100,6 +119,32 @@ getMouseCallback(){
         const mouseY=event.clientY;
         const y_Normalized= -((mouseY - winHeight/2)/ (winHeight/2));
         animation_.endTranslate= y_Normalized * translateRange;
+
+        console.log(event.pointerId + ` - ${event.pointerType}`);
+
+        if(event.pointerType=="touch" && event.isPrimary==true){
+
+
+            if(throttle){
+
+              
+                throttle=false;
+                const cursorDelta= -(event.clientY - this.touchDevice.cursorY );
+                const lastCursorPosY=this.touchDevice.currentScrollY
+                const scrollElemenet_=this.scrollElement;
+  
+                const changeScroll=function(){
+                    scrollElemenet_.scrollTop=cursorDelta+lastCursorPosY;
+                    throttle=true;
+
+                };
+
+                requestAnimationFrame(changeScroll);
+            
+
+            }
+           
+        }
 
     }
 

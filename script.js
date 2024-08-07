@@ -10,6 +10,7 @@ const space=document.querySelector(".space");
 const mouseTracker=new mouseEffect.mouseTracker(parallaxMain,parallax);
 mouseTracker.percentageScroll=40;//right and left max scroll
 let mouseEvent=parallaxMain.addEventListener("pointermove", mouseTracker.getMouseCallback());
+let forTouchScreen = parallaxMain.addEventListener("pointerdown", mouseTracker.getTouchDownCallback());
 parallaxMain.ondragstart=()=>false;
 
 
